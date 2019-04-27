@@ -29,7 +29,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <FruityHalNrf.h>
 
+/*
 //PCA10040 - nRF52 DK
+
 void setBoard_4(BoardConfiguration* c)
 {
 #ifdef NRF52
@@ -45,6 +47,36 @@ void setBoard_4(BoardConfiguration* c)
 		c->uartTXPin =  6;
 		c->uartCTSPin =  7;
 		c->uartRTSPin =  5;
+		c->uartBaudRate = UART_BAUDRATE_BAUDRATE_Baud1M;
+		c->dBmRX = -96;
+		c->calibratedTX =  -60;
+		c->lfClockSource = NRF_CLOCK_LF_SRC_XTAL;
+		c->dcDcEnabled = true;
+	}
+#endif
+}
+
+*/
+
+
+//REDBEAR Nano v.2 - nRF52 DK
+//Especial configuration is needed for correct the pins.
+
+void setBoard_4(BoardConfiguration* c)
+{
+#ifdef NRF52
+	if(c->boardType == 4)
+	{
+		c->led1Pin =  11;  //led da placa p0_11
+		c->led2Pin =  11;
+		c->led3Pin =  11;
+		c->ledActiveHigh =  false;
+		c->button1Pin =  5; //pin D4 p0_5
+		c->buttonsActiveHigh =  false;
+		c->uartRXPin =  30; //pin UART D1
+		c->uartTXPin =  29;//D0
+		c->uartCTSPin =  28;//D2
+		c->uartRTSPin =  2;//D3
 		c->uartBaudRate = UART_BAUDRATE_BAUDRATE_Baud1M;
 		c->dBmRX = -96;
 		c->calibratedTX =  -60;
