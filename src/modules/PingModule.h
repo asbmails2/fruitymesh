@@ -11,7 +11,7 @@
 // ** Licensees holding valid commercial Bluerange licenses may use this file in
 // ** accordance with the commercial license agreement provided with the
 // ** Software or, alternatively, in accordance with the terms contained in
-// ** a written agreement between them and M-Way Solutions GmbH. 
+// ** a written agreement between them and M-Way Solutions GmbH.
 // ** For licensing terms and conditions see https://www.bluerange.io/terms-conditions. For further
 // ** information use the contact form at https://www.bluerange.io/contact.
 // **
@@ -27,61 +27,61 @@
 // **
 // ****************************************************************************/
 ////////////////////////////////////////////////////////////////////////////////
-#include <FruityHalNrf.h>
 
-/*
-//PCA10040 - nRF52 DK
+#pragma once
 
-void setBoard_4(BoardConfiguration* c)
+#include <Module.h>
+
+class PingModule: public Module
 {
-#ifdef NRF52
-	if(c->boardType == 4)
-	{
-		c->led1Pin =  17;
-		c->led2Pin =  18;
-		c->led3Pin =  19;
-		c->ledActiveHigh =  false;
-		c->button1Pin =  13;
-		c->buttonsActiveHigh =  false;
-		c->uartRXPin =  8;
-		c->uartTXPin =  6;
-		c->uartCTSPin =  7;
-		c->uartRTSPin =  5;
-		c->uartBaudRate = UART_BAUDRATE_BAUDRATE_Baud1M;
-		c->dBmRX = -96;
-		c->calibratedTX =  -60;
-		c->lfClockSource = NRF_CLOCK_LF_SRC_XTAL;
-		c->dcDcEnabled = true;
-	}
-#endif
-}
+	private:
 
-*/
+		//Module configuration that is saved persistently (size must be multiple of 4)
+		struct PingModuleConfiguration : ModuleConfiguration{
+			//Insert more persistent config values here
+		};
+
+		PingModuleConfiguration configuration;
+
+		enum PingModuleTriggerActionMessages{
+			MESSAGE_0 = 0
+		};
+
+		enum PingModuleActionResponseMessages{
+			MESSAGE_0_RESPONSE = 0
+		};
+
+		/*
+		//####### Module messages (these need to be packed)
+		#pragma pack(push)
+		#pragma pack(1)
+
+			#define SIZEOF_PING_MODULE_***_MESSAGE 10
+			typedef struct
+			{
+				//Insert values here
+
+			}PingModule***Message;
+
+		#pragma pack(pop)
+		//####### Module messages end
+		*/
 
 
-//REDBEAR Nano v.2 - nRF52 DK
-//Especial configuration is needed for correct the pins.
+	public:
+		PingModule();
 
-void setBoard_4(BoardConfiguration* c)
-{
-#ifdef NRF52
-	if(c->boardType == 4)
-	{
-		c->led1Pin =  11;  //led da placa p0_11
-		c->led2Pin =  2;   //pinos i/o p0_2
-		c->led3Pin =  28; //pinos i/o p0_28
-		c->ledActiveHigh =  true;
-		c->button1Pin =  5; //pin D4 p0_5
-		c->buttonsActiveHigh =  false;
-		c->uartRXPin =  30; //pin UART D1
-		c->uartTXPin =  29;//D0
-		c->uartCTSPin =  28;//D2
-		c->uartRTSPin =  2;//D3
-		c->uartBaudRate = UART_BAUDRATE_BAUDRATE_Baud1M;
-		c->dBmRX = -96;
-		c->calibratedTX =  -60;
-		c->lfClockSource = NRF_CLOCK_LF_SRC_XTAL;
-		c->dcDcEnabled = true;
-	}
-#endif
-}
+		void ConfigurationLoadedHandler(ModuleConfiguration* migratableConfig, u16 migratableConfigLength);
+
+		void ResetToDefaultConfiguration();
+
+		void TimerEventHandler(u16 passedTimeDs);
+
+		//void BleEventHandler(ble_evt_t* bleEvent);
+
+		void MeshMessageReceivedHandler(BaseConnection* connection, BaseConnectionSendData* sendData, connPacketHeader* packetHeader);
+
+		#ifdef TERMINAL_ENABLED
+		bool TerminalCommandHandler(char* commandArgs[], u8 commandArgsSize) override;
+		#endif
+};

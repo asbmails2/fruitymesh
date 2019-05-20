@@ -52,6 +52,7 @@
 #include <TestBattery.h>
 #include <Config.h>
 #include <FlashStorage.h>
+#include <PingModule.h>
 
 #ifdef ACTIVATE_ASSET_MODULE
 #include <AssetModule.h>
@@ -208,7 +209,7 @@ void BootFruityMesh()
 	Logger::getInstance().enableTag("ENROLLMOD");
 //	Logger::getInstance().enableTag("IOMOD");
 //	Logger::getInstance().enableTag("SCANMOD");
-//	Logger::getInstance().enableTag("PINGMOD");
+    Logger::getInstance().enableTag("PINGMOD");
 	Logger::getInstance().enableTag("DFUMOD");
 	Logger::getInstance().enableTag("CLCMOD");
 	Logger::getInstance().enableTag("MAMOD");
@@ -311,6 +312,8 @@ void BootFruityMesh()
 #ifdef ACTIVATE_TESTING_MODULE
 	GS->activeModules[15] = new TestingModule();
 #endif
+	GS->activeModules[16] = new PingModule();
+
 	//Start all Modules
 	for(int i=0; i<MAX_MODULE_COUNT; i++){
 		if(GS->activeModules[i] != nullptr){
@@ -318,7 +321,7 @@ void BootFruityMesh()
 		}
 	}
 
-//	TestBattery* testBattery = new TestBattery();
+//TestBattery* testBattery = new TestBattery();
 //	testBattery->startTesting();
 //	testBattery->scanAt50Percent();
 

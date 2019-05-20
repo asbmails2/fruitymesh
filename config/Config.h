@@ -213,7 +213,7 @@ enum moduleID{
 	WM_MODULE_ID=155,
 
 	//Other Modules
-	MY_CUSTOM_MODULE=200,
+	PING_MODULE_ID=200,
 
 	//Invalid Module: 0xFF is the flash memory default and is therefore invalid
 	INVALID_MODULE=255

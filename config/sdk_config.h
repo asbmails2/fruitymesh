@@ -129,7 +129,7 @@
 // <128=> Custom tx power selection 
 
 #ifndef ANTFS_CONFIG_TRANSMIT_POWER
-#define ANTFS_CONFIG_TRANSMIT_POWER 3
+#define ANTFS_CONFIG_TRANSMIT_POWER 0
 #endif
 
 // <o> ANTFS_CONFIG_CUSTOM_TRANSMIT_POWER - ANT Custom Transmit Power. 

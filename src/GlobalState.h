@@ -38,7 +38,7 @@ extern "C"{
 #include <ble_gatt.h>
 }
 
-#define MAX_MODULE_COUNT 16
+#define MAX_MODULE_COUNT 17
 
 class ScanController;
 class AdvertisingController;

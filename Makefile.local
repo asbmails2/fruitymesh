@@ -9,7 +9,7 @@
 FRUITYMESH_GNU_INSTALL_ROOT := /home/asb/Nordic/gcc-arm-none-eabi-4_9-2015q3
 
 # Uncomment the following lines to configure the build
-BUILD_TYPE       ?= release
-PLATFORM         ?= NRF52
-FEATURESET       ?= dev
+BUILD_TYPE       = release
+PLATFORM         = NRF52
+#FEATURESET      = dev
 
