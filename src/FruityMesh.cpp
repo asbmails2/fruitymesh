@@ -187,7 +187,7 @@ void BootFruityMesh()
 	Logger::getInstance().enableTag("CONN");
 	Logger::getInstance().enableTag("STATES");
 //	Logger::getInstance().enableTag("ADV");
-//	Logger::getInstance().enableTag("SINK");
+Logger::getInstance().enableTag("SINK");
 //	Logger::getInstance().enableTag("CM");
 	Logger::getInstance().enableTag("DISCONNECT");
 //	Logger::getInstance().enableTag("JOIN");

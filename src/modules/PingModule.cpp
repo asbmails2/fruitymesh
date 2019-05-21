@@ -88,41 +88,20 @@ void PingModule::TimerEventHandler(u16 passedTimeDs)
 bool PingModule::TerminalCommandHandler(char* commandArgs[], u8 commandArgsSize)
 {
 	//React on commands, return true if handled, false otherwise
-	logt("PINGMOD", "Entrei");
-/*	if(commandArgsSize >= 3 && TERMARGS(2, moduleName))
-	{
-		if(TERMARGS(0, "action"))
-		{
-			//if(!TERMARGS(2, moduleName));
-
-			if(commandArgsSize >= 4 && TERMARGS(3, "argument_a"))
-			{
-
-			return true;
-			}
-			else if(commandArgsSize >= 4 && TERMARGS(3, "argument_b"))
-			{
-
-			return true;
-			}
-
-			
-
-		}
-	}*/
-	
-		//React on commands, return true if handled, false otherwise
-	if(TERMARGS(0, "pingmod")){
+	if(TERMARGS(0, "pm")){ 
 		//Get the id of the target node
 		NodeId targetNodeId = atoi(commandArgs[1]);
-		int pacotes = atoi(commandArgs[2]) + 1;
-		
-		for(int i = 0; i < pacotes; i++){
-		logt("PINGMOD", "Trying to ping node %u, msg %d", targetNodeId,i);
-		
+		int ping = atoi(commandArgs[2]);
 		//Some data
-		u8 data[1];
+		u8 data[5];
 		data[0] = 111;
+		data[1] = 111;
+		data[2] = 111;
+		data[3] = 111;
+		data[4] = 111;
+		
+		for(int i=0; i<ping;i++){
+		logt("PINGMOD", "Trying to ping node %u - ping n = %d", targetNodeId,(i+1));
 
 		//Send ping packet to that node
 		SendModuleActionMessage(
@@ -133,12 +112,11 @@ bool PingModule::TerminalCommandHandler(char* commandArgs[], u8 commandArgsSize)
 				data,
 				1,
 				false
-		);
-		for(int ii=1000; ii>0;i--);
+		  );
+		  for(int ii = 8000; ii>0;ii);
 		}
 		return true;
 	}
-
 
 	//Must be called to allow the module to get and set the config
 	return Module::TerminalCommandHandler(commandArgs, commandArgsSize);
