@@ -41,19 +41,6 @@ extern "C"{
 
 }
 
-void delay(int number_of_seconds) 
-{ 
-    // Converting time into milli_seconds 
-    int milli_seconds = 100 * number_of_seconds; 
-  
-    // Stroing start time 
-    clock_t start_time = clock(); 
-  
-    // looping till required time is not acheived 
-    while (clock() < start_time + milli_seconds) 
-        ; 
-} 
-
 
 PingModule::PingModule()
 	: Module(moduleID::PING_MODULE_ID, "ping")
@@ -125,7 +112,10 @@ bool PingModule::TerminalCommandHandler(char* commandArgs[], u8 commandArgsSize)
 				1,
 				false
 		  );
-		   delay(atraso); 
+		  long a = 0;
+		   for(long i = 10000*atraso;i>0;i--)
+		   		a = i;
+		   	
 		}
 		return true;
 	}
