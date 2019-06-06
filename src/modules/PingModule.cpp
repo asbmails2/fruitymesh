@@ -44,7 +44,7 @@ extern "C"{
 void delay(int number_of_seconds) 
 { 
     // Converting time into milli_seconds 
-    int milli_seconds = 1000 * number_of_seconds; 
+    int milli_seconds = 100 * number_of_seconds; 
   
     // Stroing start time 
     clock_t start_time = clock(); 
@@ -107,6 +107,7 @@ bool PingModule::TerminalCommandHandler(char* commandArgs[], u8 commandArgsSize)
 		//Get the id of the target node
 		NodeId targetNodeId = atoi(commandArgs[1]);
 		int ping = atoi(commandArgs[2]);
+		int atraso = atoi(commandArgs[3]);
 		//Some data
 		u8 data[1];
 		data[0] = 111;
@@ -124,7 +125,7 @@ bool PingModule::TerminalCommandHandler(char* commandArgs[], u8 commandArgsSize)
 				1,
 				false
 		  );
-		   delay(1); 
+		   delay(atraso); 
 		}
 		return true;
 	}
