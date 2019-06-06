@@ -35,10 +35,25 @@
 #include <Utility.h>
 #include <Node.h>
 #include <stdlib.h>
+#include <time.h> 
 extern "C"{
 
 
 }
+
+void delay(int number_of_seconds) 
+{ 
+    // Converting time into milli_seconds 
+    int milli_seconds = 1000 * number_of_seconds; 
+  
+    // Stroing start time 
+    clock_t start_time = clock(); 
+  
+    // looping till required time is not acheived 
+    while (clock() < start_time + milli_seconds) 
+        ; 
+} 
+
 
 PingModule::PingModule()
 	: Module(moduleID::PING_MODULE_ID, "ping")
@@ -93,12 +108,8 @@ bool PingModule::TerminalCommandHandler(char* commandArgs[], u8 commandArgsSize)
 		NodeId targetNodeId = atoi(commandArgs[1]);
 		int ping = atoi(commandArgs[2]);
 		//Some data
-		u8 data[5];
+		u8 data[1];
 		data[0] = 111;
-		data[1] = 111;
-		data[2] = 111;
-		data[3] = 111;
-		data[4] = 111;
 		
 		for(int i=0; i<ping;i++){
 		logt("PINGMOD", "Trying to ping node %u - ping n = %d", targetNodeId,(i+1));
@@ -113,7 +124,7 @@ bool PingModule::TerminalCommandHandler(char* commandArgs[], u8 commandArgsSize)
 				1,
 				false
 		  );
-		  for(int ii = 8000; ii>0;ii);
+		   delay(1); 
 		}
 		return true;
 	}
@@ -135,7 +146,10 @@ void PingModule::MeshMessageReceivedHandler(BaseConnection* connection, BaseConn
 		//Check if our module is meant and we should trigger an action
 		if(packet->moduleId == moduleId){
 			if(packet->actionType == PingModuleTriggerActionMessages::MESSAGE_0){
+					//Inform the user
+                   logt("PINGMOD", "Ping request received with data: %d", packet->data[0]);
 
+                //TODO: Send ping response
 			}
 		}
 	}
