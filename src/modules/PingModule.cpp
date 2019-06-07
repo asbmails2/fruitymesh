@@ -42,6 +42,7 @@ extern "C"{
 }
 
 
+
 PingModule::PingModule()
 	: Module(moduleID::PING_MODULE_ID, "ping")
 {
@@ -94,12 +95,13 @@ bool PingModule::TerminalCommandHandler(char* commandArgs[], u8 commandArgsSize)
 		//Get the id of the target node
 		NodeId targetNodeId = atoi(commandArgs[1]);
 		int ping = atoi(commandArgs[2]);
-		int atraso = atoi(commandArgs[3]);
+		u32 delayMs = atoi(commandArgs[3])*100;
 		//Some data
 		u8 data[1];
 		data[0] = 111;
 		
 		for(int i=0; i<ping;i++){
+		u32 atraso = delayMs;
 		logt("PINGMOD", "Trying to ping node %u - ping n = %d", targetNodeId,(i+1));
 
 		//Send ping packet to that node
@@ -112,10 +114,11 @@ bool PingModule::TerminalCommandHandler(char* commandArgs[], u8 commandArgsSize)
 				1,
 				false
 		  );
-		  long a = 0;
-		   for(long i = 10000*atraso;i>0;i--)
-		   		a = i;
-		   	
+		  while(atraso != 0)
+    {
+    	atraso--;
+        nrf_delay_us(999);
+    } 	
 		}
 		return true;
 	}
