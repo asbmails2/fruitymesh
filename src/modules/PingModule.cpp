@@ -142,23 +142,10 @@ void PingModule::MeshMessageReceivedHandler(BaseConnection* connection, BaseConn
 			if(packet->actionType == PingModuleTriggerActionMessages::MESSAGE_0){
 					//Inform the user
                    logt("PINGMOD", "Ping request received with data: %d", packet->data[0]);
-
+					
                 //TODO: Send ping response
 			}
 		}
 	}
 
-	//Parse Module responses
-	if(packetHeader->messageType == MESSAGE_TYPE_MODULE_ACTION_RESPONSE){
-		connPacketModule* packet = (connPacketModule*)packetHeader;
-
-		//Check if our module is meant and we should trigger an action
-		if(packet->moduleId == moduleId)
-		{
-			if(packet->actionType == PingModuleActionResponseMessages::MESSAGE_0_RESPONSE)
-			{
-
-			}
-		}
-	}
 }

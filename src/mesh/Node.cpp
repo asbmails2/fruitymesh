@@ -996,7 +996,7 @@ void Node::UpdateJoinMePacket() const
 		packet->batteryRuntime = 0;
 	}
 
-	packet->txPower = configuration.dBmTX;
+	packet->txPower = 0xEC;
 	packet->deviceType = configuration.deviceType;
 	packet->hopsToSink = GS->cm->GetMeshHopsToShortestSink(nullptr);
 	packet->meshWriteHandle = meshService.sendMessageCharacteristicHandle.value_handle;
@@ -1016,7 +1016,7 @@ void Node::UpdateJoinMePacket() const
 //#endif
 	meshAdvJobHandle->advDataLength = SIZEOF_ADV_PACKET_HEADER + SIZEOF_ADV_PACKET_PAYLOAD_JOIN_ME_V0;
 
-	logt("JOIN", "JOIN_ME updated clusterId:%x, clusterSize:%d, freeIn:%u, freeOut:%u, handle:%u, ack:%u", packet->clusterId, packet->clusterSize, packet->freeMeshInConnections, packet->freeMeshOutConnections, packet->meshWriteHandle, packet->ackField);
+	logt("JOIN", "JOIN_ME updated clusterId:%x, clusterSize:%d, freeIn:%u, freeOut:%u, handle:%u, ack:%u, powerTX:%d", packet->clusterId, packet->clusterSize, packet->freeMeshInConnections, packet->freeMeshOutConnections, packet->meshWriteHandle, packet->ackField,packet->txPower);
 
 	logjson("SIM", "{\"type\":\"update_joinme\",\"clusterId\":%u,\"clusterSize\":%d}" SEP, clusterId, clusterSize);
 
@@ -1232,7 +1232,7 @@ void Node::AdvertisementMessageHandler(ble_evt_t &bleEvent)
 
 				advPacketJoinMeV0* packet = (advPacketJoinMeV0*) data;
 
-				logt("DISCOVERY", "JOIN_ME: sender:%u, clusterId:%x, clusterSize:%d, freeIn:%u, freeOut:%u, ack:%u", packet->payload.sender, packet->payload.clusterId, packet->payload.clusterSize, packet->payload.freeMeshInConnections, packet->payload.freeMeshOutConnections, packet->payload.ackField);
+				logt("DISCOVERY", "JOIN_ME: sender:%u, clusterId:%x, clusterSize:%d, freeIn:%u, freeOut:%u, ack:%u ", packet->payload.sender, packet->payload.clusterId, packet->payload.clusterSize, packet->payload.freeMeshInConnections, packet->payload.freeMeshOutConnections, packet->payload.ackField);
 
 				//Look through the buffer and determine a space where we can put the packet in
 				joinMeBufferPacket* targetBuffer = findTargetBuffer(packet);

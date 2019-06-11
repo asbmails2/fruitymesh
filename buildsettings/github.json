@@ -2,7 +2,8 @@
 	"additionalArgs":{
 		"settings":"github",
 		"make":"github",
-		"flash":""
+		"flash":"",
+		
 	},
 	"buildSettings":{
 		"environmentVariables":{
