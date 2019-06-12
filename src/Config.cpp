@@ -193,7 +193,9 @@ void Conf::LoadDefaults(){
 	defaultNetworkId = 0;
 	memset(defaultNetworkKey, 0x00, 16);
 	memset(defaultUserBaseKey, 0x00, 16);
-	deviceType = deviceTypes::DEVICE_TYPE_STATIC;
+	//deviceType = deviceTypes::DEVICE_TYPE_STATIC;
+	//mudar parÂmetro para definir que o módulo é normal ou sink DEVICE_TYPE_SINK
+	deviceType = deviceTypes::DEVICE_TYPE_SINK;
 	memset(&staticAccessAddress, 0xFF, sizeof(staticAccessAddress));
 }
 
