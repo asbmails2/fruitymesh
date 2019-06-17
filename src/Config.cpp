@@ -146,11 +146,11 @@ void Conf::LoadDefaults(){
 
 	configuration.meshAdvertisingIntervalHigh = (u16) MSEC_TO_UNITS(100, UNIT_0_625_MS);
 	configuration.meshScanIntervalHigh = (u16) MSEC_TO_UNITS(20, UNIT_0_625_MS);
-	configuration.meshScanWindowHigh = (u16) MSEC_TO_UNITS(3, UNIT_0_625_MS);
+	configuration.meshScanWindowHigh = (u16) MSEC_TO_UNITS(5, UNIT_0_625_MS);
 
-	configuration.meshAdvertisingIntervalLow = (u16) MSEC_TO_UNITS(100, UNIT_0_625_MS);
-	configuration.meshScanIntervalLow = (u16) MSEC_TO_UNITS(20, UNIT_0_625_MS);
-	configuration.meshScanWindowLow = (u16) MSEC_TO_UNITS(3, UNIT_0_625_MS);
+	configuration.meshAdvertisingIntervalLow = (u16) MSEC_TO_UNITS(1000, UNIT_0_625_MS);
+	configuration.meshScanIntervalLow = (u16) MSEC_TO_UNITS(50, UNIT_0_625_MS);
+	configuration.meshScanWindowLow = (u16) MSEC_TO_UNITS(1, UNIT_0_625_MS);
 
 	configuration.meshConnectingScanInterval = (u16) MSEC_TO_UNITS(20, UNIT_0_625_MS);
 	configuration.meshConnectingScanWindow = (u16) MSEC_TO_UNITS(4, UNIT_0_625_MS);
@@ -193,9 +193,9 @@ void Conf::LoadDefaults(){
 	defaultNetworkId = 0;
 	memset(defaultNetworkKey, 0x00, 16);
 	memset(defaultUserBaseKey, 0x00, 16);
-	//deviceType = deviceTypes::DEVICE_TYPE_STATIC;
+	deviceType = deviceTypes::DEVICE_TYPE_STATIC;
 	//mudar parÂmetro para definir que o módulo é normal ou sink DEVICE_TYPE_SINK
-	deviceType = deviceTypes::DEVICE_TYPE_SINK;
+	//deviceType = deviceTypes::DEVICE_TYPE_SINK;
 	memset(&staticAccessAddress, 0xFF, sizeof(staticAccessAddress));
 }
 

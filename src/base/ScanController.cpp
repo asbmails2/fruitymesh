@@ -170,19 +170,40 @@ void ScanController::SetScanDutyCycleBattery()
 	}
 	//bat medida em dc
 	logt("SC", "Battery %u DV", bat);
-	//if(bat>
-//	if(bat>
 	
-	/*
-	logt("SC", "SetScanDutyCycleBattery %u %u", interval, window);
+	//bat dada em DV logo 3v == 30DV
+	//tensão de funcionamento 3v a 1.8V -> 1,2V  que pode ser dividos em 5 estagios
+	//100% (B>=27), 75%(B<27), 50%(<24), 25%(<21)
 	
-	scanningState = SCAN_STATE_CUSTOM;
+    scanningState = SCAN_STATE_CUSTOM;
 	scanStateOk = false;
-
-	currentScanParams.interval = interval;
-	currentScanParams.window = window;
-
-	TryConfiguringScanState();*/
+	if(bat>27)//100%
+	{
+	
+	currentScanParams.interval = (u16) MSEC_TO_UNITS(20, UNIT_0_625_MS);
+	currentScanParams.window = (u16) MSEC_TO_UNITS(5, UNIT_0_625_MS);
+	currentScanParams.timeout = (u16) 1;
+	}
+	else if(bat>24)//75%
+	{
+	currentScanParams.interval = (u16) MSEC_TO_UNITS(30, UNIT_0_625_MS);
+	currentScanParams.window = (u16) MSEC_TO_UNITS(4, UNIT_0_625_MS);
+	currentScanParams.timeout = (u16) 2;
+	}
+	else if(bat>21)//50%
+	{
+	currentScanParams.interval = (u16) MSEC_TO_UNITS(40, UNIT_0_625_MS);
+	currentScanParams.window = (u16) MSEC_TO_UNITS(3, UNIT_0_625_MS);
+	currentScanParams.timeout = (u16) 3;
+	}
+	else //25%
+	{
+	currentScanParams.interval = (u16) MSEC_TO_UNITS(50, UNIT_0_625_MS);
+	currentScanParams.window = (u16) MSEC_TO_UNITS(1, UNIT_0_625_MS);
+	currentScanParams.timeout = (u16) 4;
+	}
+	TryConfiguringScanState();
+	logt("SC", "SetScanDutyCycleBattery %u %u", currentScanParams.interval, currentScanParams.window);
 }
 
 //EOF

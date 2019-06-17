@@ -432,8 +432,9 @@ void FruityHal::EventLooper()
 					} else {
 						systemEventHandler(evt_id); // Call handler
 					}
+				GS->scanController->SetScanDutyCycleBattery();	
 				}
-
+			
 #ifdef SIM_ENABLED
 				//The Simulator must simulate multiple nodes, so we have to stop the event looper here
 				return;
