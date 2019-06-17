@@ -94,8 +94,18 @@ bool PingModule::TerminalCommandHandler(char* commandArgs[], u8 commandArgsSize)
 	if(TERMARGS(0, "pm")){ 
 		//Get the id of the target node
 		NodeId targetNodeId = atoi(commandArgs[1]);
-		int ping = atoi(commandArgs[2]);
-		u32 delayMs = atoi(commandArgs[3])*100;
+		int ping = 0;
+		u32 delayMs = 0;
+		if(atoi(commandArgs[1])==0)
+		{		
+		ping = 1000;
+		delayMs = 50*100;}
+		else
+		{
+		ping = atoi(commandArgs[2]);
+		delayMs = atoi(commandArgs[3])*100;
+		}
+
 		//Some data
 		u8 data[1];
 		data[0] = 111;
@@ -109,6 +119,7 @@ bool PingModule::TerminalCommandHandler(char* commandArgs[], u8 commandArgsSize)
 		data[0] = statusMod->GetBatteryVoltage();
 	}
 		//Send ping packet to that node
+		//to send to broadcast use id == 0
 		SendModuleActionMessage(
 				MESSAGE_TYPE_MODULE_TRIGGER_ACTION,
 				targetNodeId,
@@ -116,7 +127,7 @@ bool PingModule::TerminalCommandHandler(char* commandArgs[], u8 commandArgsSize)
 				0,
 				data,
 				1,
-				false
+				false,false
 		  );
 		  while(atraso != 0)
     {
