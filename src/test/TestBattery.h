@@ -54,7 +54,9 @@ class TestBattery
 		static void advertiseAt100ms();
 		static void advertiseAt2000ms();
 		static void advertiseAt5000ms();
+		static void scanAt25Percent(); //add
 		static void scanAt50Percent();
+		static void scanAt75Percent(); //add
 		static void scanAt100Percent();
 		static void meshWith100MsConnAndHighDiscovery();
 		static void meshWith100msConnAndLowDiscovery();

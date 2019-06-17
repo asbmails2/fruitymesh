@@ -8738,6 +8738,10 @@
 
 // </h> 
 //==========================================================
+//adicionais
+
+//#define TRICKLE_TIMER_TX_SUPPRESSION_OFF   0
+//#include <trickle_api.h>
 
 // <<< end of configuration section >>>
 #endif //SDK_CONFIG_H

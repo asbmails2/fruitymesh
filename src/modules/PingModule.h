@@ -32,6 +32,8 @@
 
 #include <Module.h>
 
+#include <StatusReporterModule.h>
+
 class PingModule: public Module
 {
 	private:

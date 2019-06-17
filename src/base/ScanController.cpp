@@ -159,5 +159,30 @@ bool ScanController::ScanEventHandler(ble_evt_t &bleEvent) const
 	return false;
 }
 
+//add a function to modified the interval and window scan for %fo the battery
+
+void ScanController::SetScanDutyCycleBattery()
+{
+	u8 bat = 0;
+	StatusReporterModule* statusMod =(StatusReporterModule*)GS->node->GetModuleById(moduleID::STATUS_REPORTER_MODULE_ID);
+	if(statusMod != nullptr){
+		bat = statusMod->GetBatteryVoltage();
+	}
+	//bat medida em dc
+	logt("SC", "Battery %u DV", bat);
+	//if(bat>
+//	if(bat>
+	
+	/*
+	logt("SC", "SetScanDutyCycleBattery %u %u", interval, window);
+	
+	scanningState = SCAN_STATE_CUSTOM;
+	scanStateOk = false;
+
+	currentScanParams.interval = interval;
+	currentScanParams.window = window;
+
+	TryConfiguringScanState();*/
+}
 
 //EOF

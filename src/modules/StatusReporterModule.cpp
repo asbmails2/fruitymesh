@@ -935,6 +935,7 @@ void StatusReporterModule::convertADCtoVoltage(i16 * buffer, u16 size)
 		adc_sum_value += buffer[i];                           //Sum all values in ADC buffer
 	}
 	batteryVoltageDv = RESULT_IN_DECI_VOLTS(adc_sum_value/size);          //Transform the average ADC value into decivolts value
+	logt("STATUSMOD", "Measured Battery -> %d DV",batteryVoltageDv);
 #endif
 }
 

@@ -1016,7 +1016,7 @@ void Node::UpdateJoinMePacket() const
 //#endif
 	meshAdvJobHandle->advDataLength = SIZEOF_ADV_PACKET_HEADER + SIZEOF_ADV_PACKET_PAYLOAD_JOIN_ME_V0;
 
-	logt("JOIN", "JOIN_ME updated clusterId:%x, clusterSize:%d, freeIn:%u, freeOut:%u, handle:%u, ack:%u, powerTX:%d", packet->clusterId, packet->clusterSize, packet->freeMeshInConnections, packet->freeMeshOutConnections, packet->meshWriteHandle, packet->ackField,packet->txPower);
+	logt("JOIN", "JOIN_ME updated clusterId:%x, clusterSize:%d, freeIn:%u, freeOut:%u, handle:%u, ack:%u,/n powerTX:%d , Battery: %d mV", packet->clusterId, packet->clusterSize, packet->freeMeshInConnections, packet->freeMeshOutConnections, packet->meshWriteHandle, packet->ackField,packet->txPower,statusMod->GetBatteryVoltage());
 
 	logjson("SIM", "{\"type\":\"update_joinme\",\"clusterId\":%u,\"clusterSize\":%d}" SEP, clusterId, clusterSize);
 
@@ -1335,6 +1335,7 @@ joinMeBufferPacket* Node::findTargetBuffer(advPacketJoinMeV0* packet)
  */
 #define ________________STATES___________________
 #pragma region states
+
 
 void Node::ChangeState(discoveryState newState)
 {

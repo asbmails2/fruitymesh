@@ -127,6 +127,23 @@ void TestBattery::scanAt50Percent()
 	GS->scanController->SetScanState(scanState::SCAN_STATE_HIGH);
 }
 
+void TestBattery::scanAt75Percent()
+{
+	Config->meshScanIntervalHigh = MSEC_TO_UNITS(1000, UNIT_0_625_MS);	//(20-1024) Determines scan interval in units of 0.625 millisecond.
+	Config->meshScanWindowHigh = MSEC_TO_UNITS(750, UNIT_0_625_MS);
+
+	GS->scanController->SetScanState(scanState::SCAN_STATE_HIGH);
+}
+
+void TestBattery::scanAt25Percent()
+{
+	Config->meshScanIntervalHigh = MSEC_TO_UNITS(1000, UNIT_0_625_MS);	//(20-1024) Determines scan interval in units of 0.625 millisecond.
+	Config->meshScanWindowHigh = MSEC_TO_UNITS(250, UNIT_0_625_MS);
+
+	GS->scanController->SetScanState(scanState::SCAN_STATE_HIGH);
+}
+
+
 void TestBattery::scanAt100Percent()
 {
 	Config->meshScanIntervalHigh = MSEC_TO_UNITS(1000, UNIT_0_625_MS);	//(20-1024) Determines scan interval in units of 0.625 millisecond.

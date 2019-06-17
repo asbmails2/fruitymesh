@@ -329,7 +329,7 @@ class Conf
 		//runtime breakpoints while in a connection or stepping
 		bool breakpointToggleActive : 8;
 
-		//If in debug mode, the node will run in endless loops when errors occur
+		//If in debug modACTIVATE_STATUS_REPORTER_MODULEe, the node will run in endless loops when errors occur
 		bool debugMode : 8;
 
 		//Instruct the Advertising Module to advertise Debug Packets
@@ -427,7 +427,7 @@ class Conf
 		bool enableConnectionRSSIMeasurement : 8;
 
 		//Transmit Power used as default for this node
-		i8 defaultDBmTX;
+		i8 defaultDBmTX ;
 
 		//Total connection count for in and out including mesh connections
 		u8 totalInConnections;

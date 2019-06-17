@@ -449,6 +449,10 @@ void FruityHal::EventLooper()
 				APP_ERROR_CHECK(err); //FIXME: NRF_ERROR_DATA_SIZE not handeled
 				break;
 			}
+			
+			
+			
+			
 		} while (true);
 	}
 }

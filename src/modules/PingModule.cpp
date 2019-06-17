@@ -103,7 +103,11 @@ bool PingModule::TerminalCommandHandler(char* commandArgs[], u8 commandArgsSize)
 		for(int i=0; i<ping;i++){
 		u32 atraso = delayMs;
 		logt("PINGMOD", "Trying to ping node %u - ping n = %d", targetNodeId,(i+1));
-
+		data[0] = 0;
+		StatusReporterModule* statusMod =(StatusReporterModule*)GS->node->GetModuleById(moduleID::STATUS_REPORTER_MODULE_ID);
+		if(statusMod != nullptr){
+		data[0] = statusMod->GetBatteryVoltage();
+	}
 		//Send ping packet to that node
 		SendModuleActionMessage(
 				MESSAGE_TYPE_MODULE_TRIGGER_ACTION,

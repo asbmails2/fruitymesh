@@ -45,6 +45,9 @@ extern "C"{
 #include <ble_gap.h>
 }
 
+
+//
+
 enum class AdvJobTypes : u8{
 	INVALID,
 	SCHEDULED, //Automatically scheduled with other jobs

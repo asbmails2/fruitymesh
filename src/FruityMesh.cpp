@@ -27,14 +27,12 @@
 // **
 // ****************************************************************************/
 ////////////////////////////////////////////////////////////////////////////////
-
 #include <FruityMesh.h>
 #include <Terminal.h>
 #include <AdvertisingController.h>
 #include <ScanController.h>
 #include <GAPController.h>
 #include <GATTController.h>
-
 
 #include <Module.h>
 #include <Node.h>
@@ -201,23 +199,24 @@ void BootFruityMesh()
 	Logger::getInstance().enableTag("RS");
 	Logger::getInstance().enableTag("PQ");
 	Logger::getInstance().enableTag("C");
-	Logger::getInstance().enableTag("FH");
+	//Logger::getInstance().enableTag("FH");
 	Logger::getInstance().enableTag("TEST");
 	Logger::getInstance().enableTag("MODULE");
 	Logger::getInstance().enableTag("STATUSMOD");
 	Logger::getInstance().enableTag("DEBUGMOD");
 	Logger::getInstance().enableTag("ENROLLMOD");
-//	Logger::getInstance().enableTag("IOMOD");
-//	Logger::getInstance().enableTag("SCANMOD");
+    //	Logger::getInstance().enableTag("IOMOD");
+    //	Logger::getInstance().enableTag("SCANMOD");
     Logger::getInstance().enableTag("PINGMOD");
 	Logger::getInstance().enableTag("DFUMOD");
 	Logger::getInstance().enableTag("CLCMOD");
 	Logger::getInstance().enableTag("MAMOD");
 	//	Logger::getInstance().enableTag("CLCCOMM");
-//	Logger::getInstance().enableTag("VSMOD");
+    //	Logger::getInstance().enableTag("VSMOD");
 	Logger::getInstance().enableTag("VSDBG"); 
 	Logger::getInstance().enableTag("ASMOD");
     Logger::getInstance().enableTag("EVENTS");
+    Logger::getInstance().enableTag("SC");
 	
 	Logger::getInstance().logError(ErrorTypes::REBOOT, GS->ramRetainStructPtr->stacktrace[0], GS->ramRetainStructPtr->rebootReason);
 
@@ -320,11 +319,11 @@ void BootFruityMesh()
 			GS->activeModules[i]->LoadModuleConfigurationAndStart();
 		}
 	}
-
-//TestBattery* testBattery = new TestBattery();
-//	testBattery->startTesting();
-//	testBattery->scanAt50Percent();
-
+/*
+TestBattery *testBattery = new TestBattery();
+testBattery->startTesting();
+testBattery->scanAt50Percent();
+*/
 	//Configure a periodic timer that will call the TimerEventHandlers
 	FruityHal::StartTimers();
 
@@ -625,6 +624,7 @@ void UpdateGlobalTime(){
  * After rebooting, we can read that struct to send the error information over the mesh
  * Because the ram might be corrupted upon reset, we also save a crc and clear the struct if it does not match
  */
+ 
 void checkRamRetainStruct(){
 #ifndef SIM_ENABLED
 	//Check if crc matches and reset reboot reason if not
