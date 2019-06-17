@@ -148,8 +148,8 @@ void Conf::LoadDefaults(){
 	configuration.meshScanIntervalHigh = (u16) MSEC_TO_UNITS(20, UNIT_0_625_MS);
 	configuration.meshScanWindowHigh = (u16) MSEC_TO_UNITS(5, UNIT_0_625_MS);
 
-	configuration.meshAdvertisingIntervalLow = (u16) MSEC_TO_UNITS(1000, UNIT_0_625_MS);
-	configuration.meshScanIntervalLow = (u16) MSEC_TO_UNITS(50, UNIT_0_625_MS);
+	configuration.meshAdvertisingIntervalLow = (u16) MSEC_TO_UNITS(5000, UNIT_0_625_MS);
+	configuration.meshScanIntervalLow = (u16) MSEC_TO_UNITS(20, UNIT_0_625_MS);
 	configuration.meshScanWindowLow = (u16) MSEC_TO_UNITS(1, UNIT_0_625_MS);
 
 	configuration.meshConnectingScanInterval = (u16) MSEC_TO_UNITS(20, UNIT_0_625_MS);
