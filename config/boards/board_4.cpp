@@ -82,8 +82,8 @@ void setBoard_4(BoardConfiguration* c)
 		c->calibratedTX =  -60;
 		c->lfClockSource = NRF_CLOCK_LF_SRC_XTAL;
 		c->dcDcEnabled = true;
-	//	c->batteryAdcAin = 0;
-	 //   c->batteryCheckDIO =10;
+		c->batteryAdcAin = 4;
+	    c->batteryCheckDIO = 9;
 	}
 #endif
 }

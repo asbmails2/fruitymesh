@@ -75,9 +75,7 @@ public:
 	//Must be called if scanning was stopped by any external procedure
 	void ScanningHasStopped();
 	
-	//add tcc	
-	void SetScanDutyCycleBattery();
-	
+
 
 };
 

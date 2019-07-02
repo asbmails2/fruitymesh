@@ -433,7 +433,6 @@ void FruityHal::EventLooper()
 						systemEventHandler(evt_id); // Call handler
 					}
 					
-//				GS->scanController->SetScanDutyCycleBattery();	
 				}
 			
 #ifdef SIM_ENABLED

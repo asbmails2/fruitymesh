@@ -179,10 +179,10 @@ void Conf::LoadDefaults(){
 	configuration.enableRadioNotificationHandler = false;
 	configuration.enableConnectionRSSIMeasurement = true;
 
-	configuration.defaultDBmTX = 4;
-	configuration.encryptionEnabled = true;
+	configuration.defaultDBmTX = -20;
+	configuration.encryptionEnabled = false;
 
-	configuration.numNodesForDecision = 4;
+	configuration.numNodesForDecision = 40;
 	configuration.maxTimeUntilDecisionDs = SEC_TO_DS(2);
 	configuration.highToLowDiscoveryTimeSec = 0;
 

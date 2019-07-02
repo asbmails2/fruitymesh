@@ -53,7 +53,7 @@ extern "C"{
 #include <nrf_saadc.h>
 #endif
 
-#define BATTERY_SAMPLES_IN_BUFFER 					1//Number of SAADC samples in RAM before returning a SAADC event. For low power SAADC set this constant to 1. Otherwise the EasyDMA will be enabled for an extended time which consumes high current.
+#define BATTERY_SAMPLES_IN_BUFFER 					3//Number of SAADC samples in RAM before returning a SAADC event. For low power SAADC set this constant to 1. Otherwise the EasyDMA will be enabled for an extended time which consumes high current.
 
 #if defined(NRF51) || defined(SIM_ENABLED)
 #define REF_VOLTAGE_IN_MILLIVOLTS           		1200
@@ -64,6 +64,7 @@ extern "C"{
 #define ADC_OFFSET 									28.5
 #define RESULT_IN_DECI_VOLTS(ADC_VALUE)     		((ADC_VALUE + (ADC_OFFSET*ADC_VALUE)/100) / 10)
 #endif
+
 
 enum class RSSISamplingModes : u8 {
 	NONE = 0,

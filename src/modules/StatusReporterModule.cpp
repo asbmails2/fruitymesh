@@ -39,6 +39,7 @@
 #include <Utility.h>
 #include <Node.h>
 #include <Config.h>
+#include <ScanController.h>
 extern "C"{
 #include <app_error.h>
 #include <stdlib.h>
@@ -51,6 +52,13 @@ extern "C"{
 
 }
 
+//add tcc temps para as baterias
+
+	u8 bat1 = 0;
+	u8 bat2 = 0;
+	u8 bat3 = 0;
+	u8 bat4 = 0;
+	u8 batState = 0;
 
 StatusReporterModule::StatusReporterModule()
 	: Module(moduleID::STATUS_REPORTER_MODULE_ID, "status")
@@ -935,12 +943,76 @@ void StatusReporterModule::convertADCtoVoltage(i16 * buffer, u16 size)
 		adc_sum_value += buffer[i];                           //Sum all values in ADC buffer
 	}
 	batteryVoltageDv = RESULT_IN_DECI_VOLTS(adc_sum_value/size);          //Transform the average ADC value into decivolts value
-	logt("STATUSMOD", "Measured Battery -> %d DV",batteryVoltageDv);
+	logt("STATUSMOD", "Measured Battery -> %d DV, S -> %d",batteryVoltageDv,batState);
+	
+	
+	//add a function to modified the interval and window scan for %fo the battery
+	
+	// trecho responsável por normalizar o estado da bateria, pois os nós não leem o mesmo valor
+	if (batteryVoltageDv != 0 && batState == 0 ){
+		batState = 1;
+		bat1= batteryVoltageDv;
+	}else if(batState>0){
+		if (batState == 1){
+			if(batteryVoltageDv != 0){
+				batState=2;
+				bat2=batteryVoltageDv;
+			}
+				
+		}else if(batState==2){
+			if(batteryVoltageDv != 0){
+				bat3=batteryVoltageDv;
+				if(bat3!=0&&(bat3==bat2||bat3==(bat2-1))){
+				batState=3;
+				}
+			}  
+		}else if(batState>2){
+				if(batteryVoltageDv<bat3 && batteryVoltageDv!=0)
+					batState++;
+			}
+		}
+		
+	logt("STATUSMOD", "Measured Battery -> %d DV, S -> %d",batteryVoltageDv,batState);
+	
+	//bateria % = Estado -> -> 100% =3), 75%=4, 50%=5, 25%=6)
+	
+	if(batState==3)//100%
+	{
+	Config->meshScanIntervalHigh = (u16) MSEC_TO_UNITS(20, UNIT_0_625_MS);
+	Config->meshScanWindowHigh = (u16) MSEC_TO_UNITS(5, UNIT_0_625_MS);
+	Config->meshAdvertisingIntervalHigh = MSEC_TO_UNITS(150, UNIT_0_625_MS); // Advertising interval between 0x0020 and 0x4000 in 0.625 ms units (20ms to 10.24s), see @ref BLE_GAP_ADV_INTERVALS
+	logt("STATUSMOD", "Estado 3");
+	}
+	else if(batState==4)//75%
+	{
+	Config->meshScanIntervalHigh = (u16) MSEC_TO_UNITS(20, UNIT_0_625_MS);
+	Config->meshScanWindowHigh = (u16) MSEC_TO_UNITS(4, UNIT_0_625_MS);
+	Config->meshAdvertisingIntervalHigh = MSEC_TO_UNITS(600, UNIT_0_625_MS); // Advertising interval between 0x0020 and 0x4000 in 0.625 ms units (20ms to 10.24s), see @ref BLE_GAP_ADV_INTERVALS
+	logt("STATUSMOD", "Estado 4");
+	}
+	else if(batState==5)//50%
+	{
+	Config->meshScanIntervalHigh = (u16) MSEC_TO_UNITS(20, UNIT_0_625_MS);
+	Config->meshScanWindowHigh = (u16) MSEC_TO_UNITS(3, UNIT_0_625_MS);
+	Config->meshAdvertisingIntervalHigh = MSEC_TO_UNITS(1200, UNIT_0_625_MS); // Advertising interval between 0x0020 and 0x4000 in 0.625 ms units (20ms to 10.24s), see @ref BLE_GAP_ADV_INTERVALS
+	logt("STATUSMOD", "Estado 5");
+	}
+	else if(batState>5)//25%	
+	{
+	Config->meshScanIntervalHigh = (u16) MSEC_TO_UNITS(20, UNIT_0_625_MS);
+	Config->meshScanWindowHigh = (u16) MSEC_TO_UNITS(1, UNIT_0_625_MS);
+	Config->meshAdvertisingIntervalHigh = MSEC_TO_UNITS(3600, UNIT_0_625_MS); // Advertising interval between 0x0020 and 0x4000 in 0.625 ms units (20ms to 10.24s), see @ref BLE_GAP_ADV_INTERVALS	
+	logt("STATUSMOD", "Estado 6");
+	}
+	//GS->scanController->SetScanState(scanState::SCAN_STATE_HIGH);
+
+	
 #endif
 }
 
 u8 StatusReporterModule::GetBatteryVoltage() const
 {
+	logt("STATUSMOD", "Taking the Battery Voltage.");
 	return batteryVoltageDv;
 }
 #endif

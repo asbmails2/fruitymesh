@@ -181,7 +181,7 @@ void BootFruityMesh()
 	Logger::getInstance().enableTag("DATA");
 	Logger::getInstance().enableTag("SEC");
 	Logger::getInstance().enableTag("HANDSHAKE");
-	Logger::getInstance().enableTag("DISCOVERY");
+	//Logger::getInstance().enableTag("DISCOVERY");
 	Logger::getInstance().enableTag("CONN");
 	Logger::getInstance().enableTag("STATES");
 	//Logger::getInstance().enableTag("ADV");
@@ -192,8 +192,8 @@ void BootFruityMesh()
 	Logger::getInstance().enableTag("GATTCTRL");
 	Logger::getInstance().enableTag("CONN");
     Logger::getInstance().enableTag("CONN_DATA");
-	Logger::getInstance().enableTag("MACONN");
-	Logger::getInstance().enableTag("EINK");
+	//Logger::getInstance().enableTag("MACONN");
+	//Logger::getInstance().enableTag("EINK");
 	Logger::getInstance().enableTag("RCONN");
 	Logger::getInstance().enableTag("CONFIG");
 	Logger::getInstance().enableTag("RS");
@@ -272,15 +272,15 @@ void BootFruityMesh()
 #ifdef ACTIVATE_DFU_MODULE
 	GS->activeModules[2] = new DFUModule();
 #endif
-#ifdef ACTIVATE_STATUS_REPORTER_MODULE
+//#ifdef ACTIVATE_STATUS_REPORTER_MODULE
 	GS->activeModules[3] = new StatusReporterModule();
-#endif
+//#endif
 #ifdef ACTIVATE_ADVERTISING_MODULE
 	GS->activeModules[4] = new AdvertisingModule();
 #endif
-#ifdef ACTIVATE_SCANNING_MODULE
+//#ifdef ACTIVATE_SCANNING_MODULE
 	GS->activeModules[5] = new ScanningModule();
-#endif
+//#endif
 #ifdef ACTIVATE_ENROLLMENT_MODULE
 	GS->activeModules[6] = new EnrollmentModule();
 #endif
@@ -323,6 +323,7 @@ void BootFruityMesh()
 TestBattery *testBattery = new TestBattery();
 testBattery->startTesting();
 testBattery->scanAt50Percent();
+*°Ø/?ı€&Æ§ÐªŊĦ×<>‘<>©‘Æ§ÐªŊ’N’µ×÷÷&ºÞØıĦ
 */
 	//Configure a periodic timer that will call the TimerEventHandlers
 	FruityHal::StartTimers();

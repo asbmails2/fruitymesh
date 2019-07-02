@@ -49,7 +49,7 @@
     ((((ADC_VALUE) *ADC_REF_VOLTAGE_IN_MILLIVOLTS) / ADC_RES_10BIT) * ADC_PRE_SCALING_COMPENSATION)
 
 static nrf_saadc_value_t adc_buf;                   //!< Buffer used for storing ADC value.
-static uint16_t          m_batt_lvl_in_milli_volts; //!< Current battery level.
+static uint16_t   m_batt_lvl_in_milli_volts; //!< Current battery level.
 
 /**@brief Function handling events from 'nrf_drv_saadc.c'.
  *

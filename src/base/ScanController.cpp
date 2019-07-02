@@ -159,55 +159,5 @@ bool ScanController::ScanEventHandler(ble_evt_t &bleEvent) const
 	return false;
 }
 
-//add a function to modified the interval and window scan for %fo the battery
-
-void ScanController::SetScanDutyCycleBattery()
-{
-	u8 bat = 0;
-	StatusReporterModule* statusMod =(StatusReporterModule*)GS->node->GetModuleById(moduleID::STATUS_REPORTER_MODULE_ID);
-
-	if(statusMod != nullptr){
-		bat = statusMod->GetBatteryVoltage();
-	}
-	//bat medida em dc
-	logt("SC", "Battery %u DV", bat);
-	
-	//bat dada em DV logo 3v == 30DV
-	//tensão de funcionamento 3v a 1.8V -> 1,2V  que pode ser dividos em 5 estagios
-	//100% (B>=27), 75%(B<27), 50%(<24), 25%(<21)
-	
-    scanningState = SCAN_STATE_CUSTOM;
-	scanStateOk = false;
-	if(bat>27 || bat == 0 )//100%
-	{
-	currentScanParams.interval = (u16) MSEC_TO_UNITS(20, UNIT_0_625_MS);
-	currentScanParams.window = (u16) MSEC_TO_UNITS(5, UNIT_0_625_MS);
-	currentScanParams.timeout = (u16) 1;
-	Config->meshAdvertisingIntervalHigh = MSEC_TO_UNITS(150, UNIT_0_625_MS); // Advertising interval between 0x0020 and 0x4000 in 0.625 ms units (20ms to 10.24s), see @ref BLE_GAP_ADV_INTERVALS
-	}
-	else if(bat>24)//75%
-	{
-	currentScanParams.interval = (u16) MSEC_TO_UNITS(20, UNIT_0_625_MS);
-	currentScanParams.window = (u16) MSEC_TO_UNITS(4, UNIT_0_625_MS);
-	currentScanParams.timeout = (u16) 2;
-	Config->meshAdvertisingIntervalHigh = MSEC_TO_UNITS(500, UNIT_0_625_MS); // Advertising interval between 0x0020 and 0x4000 in 0.625 ms units (20ms to 10.24s), see @ref BLE_GAP_ADV_INTERVALS
-	}
-	else if(bat>21)//50%
-	{
-	currentScanParams.interval = (u16) MSEC_TO_UNITS(20, UNIT_0_625_MS);
-	currentScanParams.window = (u16) MSEC_TO_UNITS(3, UNIT_0_625_MS);
-	currentScanParams.timeout = (u16) 3;
-	Config->meshAdvertisingIntervalHigh = MSEC_TO_UNITS(1000, UNIT_0_625_MS); // Advertising interval between 0x0020 and 0x4000 in 0.625 ms units (20ms to 10.24s), see @ref BLE_GAP_ADV_INTERVALS
-	}
-	else //25%
-	{
-	currentScanParams.interval = (u16) MSEC_TO_UNITS(20, UNIT_0_625_MS);
-	currentScanParams.window = (u16) MSEC_TO_UNITS(1, UNIT_0_625_MS);
-	currentScanParams.timeout = (u16) 4;
-	Config->meshAdvertisingIntervalHigh = MSEC_TO_UNITS(2500, UNIT_0_625_MS); // Advertising interval between 0x0020 and 0x4000 in 0.625 ms units (20ms to 10.24s), see @ref BLE_GAP_ADV_INTERVALS	
-	}
-	TryConfiguringScanState();
-	logt("SC", "SetScanDutyCycleBattery %u %u", currentScanParams.interval, currentScanParams.window);
-}
 
 //EOF

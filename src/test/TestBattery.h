@@ -36,8 +36,6 @@
 
 #include <Node.h>
 
-#ifdef ACITVATE_TEST_BATTERY
-
 #include <ConnectionManager.h>
 
 class TestBattery
@@ -67,4 +65,3 @@ class TestBattery
 		static void TimerHandler();
 };
 
-#endif

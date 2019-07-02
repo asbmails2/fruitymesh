@@ -30,7 +30,7 @@
 
 #include <TestBattery.h>
 
-#ifdef ACITVATE_TEST_BATTERY
+
 
 #include <Logger.h>
 #include <AdvertisingController.h>
@@ -230,4 +230,4 @@ void TestBattery::meshWith500msConnAndDiscoveryOff()
 	deactivateDiscoveryAfterDs = SEC_TO_DS(20);
 }
 
-#endif
+

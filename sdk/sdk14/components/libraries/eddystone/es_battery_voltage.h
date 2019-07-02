@@ -37,7 +37,7 @@
  * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
  */
-#ifndef ES_BATTERY_VOLTAGE_H__
+//#ifndef ES_BATTERY_VOLTAGE_H__
 #define ES_BATTERY_VOLTAGE_H__
 
 #include <stdint.h>
@@ -63,4 +63,4 @@ void es_battery_voltage_get(uint16_t * p_vbatt);
  * @}
  */
 
-#endif // ES_BATTERY_VOLTAGE_H__
+//#endif // ES_BATTERY_VOLTAGE_H__
